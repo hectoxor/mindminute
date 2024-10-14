@@ -4,9 +4,9 @@ from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import traceback
 import re
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 import json
-load_dotenv()  # Load environment variables from .env
+# load_dotenv()  # Load environment variables from .env
 
 openai.api_key = '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'
 
