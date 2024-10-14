@@ -14,17 +14,7 @@ export const generateText = async (prompt) => {
   }
 };
 
-export const fetchHistory = async () => {
-  const response = await axios.get(`${API_BASE_URL}/api/get_history`);
-  return response.data;
-};
 
-
-
-export const clearChatHistory = async () => {
-  const response = await axios.post(`${API_BASE_URL}/api/clear_history`);
-  return response.data;
-};
 export const generateQuestions = async (text) => {
   try {
     const response = await axios.post(`${API_BASE_URL}/generate_questions`, { text });
