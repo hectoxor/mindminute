@@ -29,21 +29,9 @@ def serve(path):
     else:
         return send_from_directory(static_folder, 'index.html')
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///dialogues.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-from flask_sqlalchemy import SQLAlchemy
-db = SQLAlchemy(app)
 
-# Define the Dialogue model
-class Dialogue(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    user_prompt = db.Column(db.Text, nullable=False)
-    helper_response = db.Column(db.Text, nullable=False)
-    timestamp = db.Column(db.DateTime, default=db.func.current_timestamp())
 
-# Create the database tables
-with app.app_context():
-    db.create_all()
+
 
 # Define the professional psychology helper prompt
 PROFESSIONAL_HELPER_PROMPT = """
@@ -76,9 +64,6 @@ def generate_text():
         helper_response = response['choices'][0]['message']['content']
         
         # Save the dialogue to the database
-        dialogue_entry = Dialogue(user_prompt=user_prompt, helper_response=helper_response)
-        db.session.add(dialogue_entry)
-        db.session.commit()
         
         return jsonify({
             'response': helper_response
@@ -87,24 +72,7 @@ def generate_text():
         print(traceback.format_exc())
         return jsonify({'error': str(e)}), 500
 
-# API to get the history of chat
-@app.route('/api/get_history', methods=['GET'])
-def get_chat_history():
-    dialogues = Dialogue.query.order_by(Dialogue.timestamp.desc()).all()
-    history = [{'user_prompt': d.user_prompt, 'helper_response': d.helper_response, 'timestamp': d.timestamp} for d in dialogues]
-    return jsonify(history)
 
-# API to clear chat history
-@app.route('/api/clear_history', methods=['POST'])
-def clear_history():
-    try:
-        num_deleted = db.session.query(Dialogue).delete()
-        db.session.commit()
-        return jsonify({'message': f'{num_deleted} records deleted'})
-    except Exception as e:
-        db.session.rollback()
-        print(traceback.format_exc())
-        return jsonify({'error': 'Failed to clear history'}), 500
 
     
 @app.route('/api/generate_questions', methods=['POST'])
