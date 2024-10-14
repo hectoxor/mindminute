@@ -19,7 +19,7 @@ const NLPForm = () => {
       const res = await generateText(prompt);
       setResponse(res);
     } catch (err) {
-      setError('Failed to generate text. Please try again.');
+      setError('Failed to generate text. This service is restricted in your country. Try using a VPN');
     } finally {
       setLoading(false);
     }

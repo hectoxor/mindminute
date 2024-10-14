@@ -54,7 +54,7 @@ const Flashcards = () => {
         setError(err.response.data.error || 'Server error occurred.');
       } else if (err.request) {
         // Request was made but no response received
-        setError('No response from server. Please check your backend.');
+        setError('No response from server. This service is restricted in your country');
       } else {
         // Something else happened
         setError('An unexpected error occurred.');
