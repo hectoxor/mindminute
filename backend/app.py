@@ -9,7 +9,7 @@ import re
 import json
 # load_dotenv()  # Load environment variables from .env
 
-openai.api_key = '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'
+# openai.api_key = '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'
 
 client = OpenAI(
     # This is the default and can be omitted
