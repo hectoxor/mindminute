@@ -1,0 +1,12 @@
+{
+    "name": "sociathon",
+    "version": "1.0.0",
+    "engines": {
+      "node": "16.x"
+    },
+    "scripts": {
+      "start": "echo 'This is a placeholder script. Heroku uses the Procfile to start the app.'",
+      "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
+    }
+  }
+  
