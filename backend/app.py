@@ -1,5 +1,6 @@
 import os
 import openai
+from openai import OpenAI
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import traceback
@@ -10,7 +11,10 @@ import json
 
 openai.api_key = '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'
 
-
+client = OpenAI(
+    # This is the default and can be omitted
+    api_key=os.environ.get("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"),
+)
 # Load environment variables from .env file
 
 app = Flask(
@@ -51,7 +55,7 @@ def generate_text():
     user_prompt = data.get('prompt', '')
 
     try:
-        response = openai.ChatCompletion.create(
+        response = client.chat.completions.create(
             model="gpt-4o-mini",  # Correct the model
             messages=[
                 {"role": "system", "content": PROFESSIONAL_HELPER_PROMPT},
@@ -60,7 +64,7 @@ def generate_text():
             temperature=0.4,
             max_tokens=1000
         )
-        
+
         helper_response = response['choices'][0]['message']['content']
         
         # Save the dialogue to the database

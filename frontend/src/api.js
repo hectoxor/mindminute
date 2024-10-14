@@ -2,7 +2,8 @@
 
 import axios from 'axios';
 
-const API_BASE_URL = '/api'; // Update if your Flask server runs on a different port
+//const API_BASE_URL = 'http://localhost:5000/api'; 
+const API_BASE_URL = '/api';// Update if your Flask server runs on a different port
 
 export const generateText = async (prompt) => {
   try {
