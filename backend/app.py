@@ -1,6 +1,7 @@
 import os
-import openai
+
 from openai import OpenAI
+
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import traceback
@@ -9,11 +10,11 @@ import re
 import json
 # load_dotenv()  # Load environment variables from .env
 
-# openai.api_key = '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'
+#api_key = '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'
 
 client = OpenAI(
     # This is the default and can be omitted
-    api_key=os.environ.get("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"),
+    api_key="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"
 )
 # Load environment variables from .env file
 
@@ -65,7 +66,7 @@ def generate_text():
             max_tokens=1000
         )
 
-        helper_response = response['choices'][0]['message']['content']
+        helper_response = response.choices[0].message.content
         
         # Save the dialogue to the database
         
@@ -91,7 +92,7 @@ def generate_questions():
             f"{study_material}"
         )
 
-        response = openai.ChatCompletion.create(
+        response = client.chat.completions.create(
             model="gpt-4o-mini",
             messages=[
                 {"role": "system", "content": "You are an educational assistant that creates self-assessment questions for study purposes."},
@@ -101,7 +102,7 @@ def generate_questions():
             max_tokens=1000
         )
 
-        questions = response['choices'][0]['message']['content'].strip()
+        questions = response.choices[0].message.content.strip()
 
         return jsonify({
             'questions': questions
@@ -151,7 +152,7 @@ def improve_schedule():
             '}'
         )
 
-        response = openai.ChatCompletion.create(
+        response = client.chat.completions.create(
             model="gpt-4o-mini",  # Corrected model name
             messages=[
                 {"role": "system", "content": "You are a helpful assistant specializing in creating balanced study schedules with stress relief activities."},
@@ -161,7 +162,7 @@ def improve_schedule():
             max_tokens=1500
         )
 
-        improved_schedule_text = response['choices'][0]['message']['content'].strip()
+        improved_schedule_text = response.choices[0].message.content.strip()
 
         # Attempt to parse the response as JSON
         try:
@@ -202,7 +203,7 @@ def generate_flashcards():
             f"{study_material}"
         )
 
-        response = openai.ChatCompletion.create(
+        response = client.chat.completions.create(
             model="gpt-4o-mini",  # Corrected model name
             messages=[
                 {"role": "system", "content": "You are an educational assistant that creates flashcards for study purposes."},
@@ -212,7 +213,7 @@ def generate_flashcards():
             max_tokens=1000
         )
 
-        flashcards_text = response['choices'][0]['message']['content'].strip()
+        flashcards_text = response.choices[0].message.content.strip()
 
         # Parse the flashcards into a structured format
         flashcards = []
