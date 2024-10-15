@@ -16,7 +16,7 @@ import ScheduleIcon from '@mui/icons-material/Schedule';
 import QuizIcon from '@mui/icons-material/Quiz';
 import SchoolIcon from '@mui/icons-material/School';
 import SummarizeIcon from '@mui/icons-material/Summarize';
-import HomeIllustration from '../logo2.svg'; // Replace with your image path
+import HomeIllustration from '../logo.svg'; // Replace with your image path
 import MotionButton from './AnimatedButton'; 
 
 const Home = () => {
