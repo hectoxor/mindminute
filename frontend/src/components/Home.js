@@ -71,7 +71,7 @@ const Home = () => {
                 gutterBottom
                 sx={{ color: 'primary.main' }}
               >
-                Welcome to StudyEase
+                Welcome to MindMinute
               </Typography>
               <Typography variant="h6" paragraph sx={{ color: 'text.secondary' }}>
                 Your personal assistant for managing study schedules, generating self-assessment questions, creating flashcards, and summarizing study materials. Achieve your academic goals with ease and efficiency!
