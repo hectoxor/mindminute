@@ -1,7 +1,7 @@
 import os
 
 from openai import OpenAI
-from dotenv import load_dotenv
+
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import traceback
@@ -9,14 +9,13 @@ import re
 # from dotenv import load_dotenv
 import json
 # load_dotenv()  # Load environment variables from .env
-load_dotenv()
-api_key = os.getenv('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')
+
+
 
 client = OpenAI(
     # This is the default and can be omitted
-    api_key=api_key
+    api_key="your key"
 )
-
 # Load environment variables from .env file
 
 app = Flask(
