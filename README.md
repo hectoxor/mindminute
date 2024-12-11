@@ -1,1 +1,2 @@
-# mindminute
+# mindminute app
+
